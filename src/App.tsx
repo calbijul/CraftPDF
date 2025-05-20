@@ -1,35 +1,38 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState, type FC, type ChangeEvent } from 'react';
+import { PDFViewer } from './components/PDFViewer';
+import { PDFActions } from './components/PDFActions';
 
-function App() {
-  const [count, setCount] = useState(0)
+const App: FC = () => {
+  const [pdfData, setPdfData] = useState<Uint8Array | null>(null);
+
+  const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        const result = reader.result;
+        if (result instanceof ArrayBuffer) {
+          setPdfData(new Uint8Array(result));
+        }
+      };
+      reader.readAsArrayBuffer(file);
+    }
+  };
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <div className="min-h-screen bg-gray-100 p-4">
+      <h1 className="text-2xl font-bold mb-4 text-center">PDF Editor</h1>
+      <div className="mb-4 flex justify-center">
+        <input type="file" accept="application/pdf" onChange={handleFileChange} />
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+      {pdfData && (
+        <>
+          <PDFActions pdfData={pdfData} onUpdate={setPdfData} />
+          <PDFViewer pdfData={pdfData} />
+        </>
+      )}
+    </div>
+  );
+};
 
-export default App
+export default App;
