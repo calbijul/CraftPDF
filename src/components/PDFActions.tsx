@@ -1,4 +1,11 @@
+// pdf_editor_app/src/components/PDFActions.tsx
 import { type FC } from 'react';
+import {
+  ArrowPathIcon,
+  ScissorsIcon,
+  DocumentPlusIcon,
+  ArrowDownTrayIcon,
+} from '@heroicons/react/24/outline';
 import { rotatePDF, splitPDF, mergePDFs } from '../utils/pdfUtils';
 
 interface PDFActionsProps {
@@ -51,11 +58,40 @@ export const PDFActions: FC<PDFActionsProps> = ({ pdfData, onUpdate }) => {
   };
 
   return (
-    <div className="flex justify-center gap-4 mb-6 flex-wrap">
-      <button onClick={handleRotate} className="px-4 py-2 bg-blue-500 text-white rounded">Rotate</button>
-      <button onClick={handleSplit} className="px-4 py-2 bg-yellow-500 text-white rounded">Split</button>
-      <button onClick={handleMerge} className="px-4 py-2 bg-green-600 text-white rounded">Merge</button>
-      <button onClick={handleDownload} className="px-4 py-2 bg-purple-600 text-white rounded">Download</button>
+    <div className=" rounded-lg shadow-md p-4 mb-6">
+      <div className="flex justify-center gap-6 flex-wrap">
+        <button
+          onClick={handleRotate}
+          className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold px-4 py-2 rounded-full transition"
+        >
+          <ArrowPathIcon className="h-5 w-5" />
+          <span>Rotate</span>
+        </button>
+
+        <button
+          onClick={handleSplit}
+          className="flex items-center gap-2 bg-yellow-500 hover:bg-yellow-600 text-white font-semibold px-4 py-2 rounded-full transition"
+        >
+          <ScissorsIcon className="h-5 w-5" />
+          <span>Split</span>
+        </button>
+
+        <button
+          onClick={handleMerge}
+          className="flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white font-semibold px-4 py-2 rounded-full transition"
+        >
+          <DocumentPlusIcon className="h-5 w-5" />
+          <span>Merge</span>
+        </button>
+
+        <button
+          onClick={handleDownload}
+          className="flex items-center gap-2 bg-purple-600 hover:bg-purple-700 text-white font-semibold px-4 py-2 rounded-full transition"
+        >
+          <ArrowDownTrayIcon className="h-5 w-5" />
+          <span>Download</span>
+        </button>
+      </div>
     </div>
   );
 };

@@ -45,8 +45,8 @@ const App: FC = () => {
 
       {pdfData && (
         <div className="w-full">
-          <div className="bg-white rounded-b-lg p-4">
-            <h1 className="text-2xl font-semibold text-gray-800 mb-4 text-center">
+          <div className="bg-gray-900 rounded-b-lg p-4">
+            <h1 className="text-2xl font-semibold text-gray-200 mb-4 text-center">
               PDF Editor
             </h1>
             <PDFActions pdfData={pdfData} onUpdate={setPdfData} />
