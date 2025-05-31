@@ -67,6 +67,7 @@ const App: FC = () => {
 
   return (
     <div className="min-h-screen bg-gray-900">
+    
       {!pdfData && (
         <div className="flex items-center justify-center min-h-screen px-4">
           <div className="bg-gray-800 rounded-lg p-8 w-full max-w-md text-center">
